@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loci</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <!-- 🤖 ROBOT -->
+  <div class="robot idle" id="robot">
+    <svg viewBox="0 0 400 300" class="robot-face">
+      <rect x="120" y="120" width="60" height="60" rx="14" class="eye" />
+      <rect x="220" y="120" width="60" height="60" rx="14" class="eye" />
+    </svg>
+  </div>
+
+  <!-- LEFT -->
+  <button id="prev" class="nav-btn left" disabled>&lt;</button>
+
+  <!-- CENTER -->
+  <div class="location-label" id="startArea">
+    <span id="location">Tap to start</span>
+  </div>
+
+  <!-- RIGHT -->
+  <button id="next" class="nav-btn right" disabled>&gt;</button>
+
+  <script src="/script.js"></script>
+</body>
+</html>
