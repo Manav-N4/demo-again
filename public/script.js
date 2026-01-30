@@ -1,45 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   const locations = [
-  {
-    name: "Entrance",
-    audio: "/audio/entrance.mp3",
-    image: "/images/entrance.jpeg"
-  },
-  {
-    name: "Reception",
-    audio: "/audio/reception.mp3",
-    image: "/images/reception.jpeg"
-  },
-  {
-    name: "Innovation Lab",
-    audio: "/audio/innovation-lab.mp3",
-    image: "/images/innovation-lab.jpeg"
-  },
-  {
-    name: "Cafeteria",
-    audio: "/audio/cafeteria.mp3",
-    image: "/images/cafeteria.jpeg"
-  },
-  {
-    name: "PST Pride",
-    audio: "/audio/pst-pride.mp3",
-    image: "/images/pst-pride.jpeg"
-  },
-  {
-    name: "Radial Classroom",
-    audio: "/audio/radial-classroom.mp3",
-    image: "/images/radial-classroom.jpeg"
-  }
-];
-
+    { name: "Entrance", audio: "/audio/entrance.mp3", image: "/images/entrance.jpg" },
+    { name: "Reception", audio: "/audio/reception.mp3", image: "/images/reception.jpg" },
+    { name: "Innovation Lab", audio: "/audio/innovation-lab.mp3", image: "/images/innovation-lab.jpg" },
+    { name: "Cafeteria", audio: "/audio/cafeteria.mp3", image: "/images/cafeteria.jpg" },
+    { name: "PST Pride", audio: "/audio/pst-pride.mp3", image: "/images/pst-pride.jpg" },
+    { name: "Radial Classroom", audio: "/audio/radial-classroom.mp3", image: "/images/radial-classroom.jpg" }
+  ];
 
   let index = 0;
   let isPlaying = false;
 
   const audio = new Audio();
 
-  const robot = document.getElementById("robot");
   const placeName = document.getElementById("placeName");
   const placeImage = document.getElementById("placeImage");
 
@@ -47,14 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = document.getElementById("next");
   const playBtn = document.getElementById("playPause");
 
-  function setState(state) {
-    robot.className = `robot ${state}`;
-  }
+  const playIcon = document.getElementById("playIcon");
+  const pauseIcon = document.getElementById("pauseIcon");
 
   function loadLocation() {
     const loc = locations[index];
-
-    setState("thinking");
 
     placeName.textContent = loc.name;
     placeImage.src = loc.image;
@@ -63,33 +34,24 @@ document.addEventListener("DOMContentLoaded", () => {
     audio.currentTime = 0;
     audio.src = loc.audio;
 
-    if (isPlaying) {
-      audio.play().then(() => setState("speaking"));
-    } else {
-      setState("idle");
-    }
+    if (isPlaying) audio.play();
   }
 
   function play() {
-    audio.play().then(() => {
-      isPlaying = true;
-      playBtn.textContent = "⏸";
-      setState("speaking");
-    });
+    audio.play();
+    isPlaying = true;
+    playIcon.style.display = "none";
+    pauseIcon.style.display = "block";
   }
 
   function pause() {
     audio.pause();
     isPlaying = false;
-    playBtn.textContent = "▶️";
-    setState("idle");
+    playIcon.style.display = "block";
+    pauseIcon.style.display = "none";
   }
 
-  /* ---------- EVENTS ---------- */
-
-  playBtn.onclick = () => {
-    isPlaying ? pause() : play();
-  };
+  playBtn.onclick = () => isPlaying ? pause() : play();
 
   nextBtn.onclick = () => {
     index = (index + 1) % locations.length;
@@ -103,6 +65,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   audio.onended = pause;
 
-  /* ---------- INIT ---------- */
   loadLocation();
 });

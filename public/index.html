@@ -3,32 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Loci</title>
+  <title>Loci Guide</title>
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
 
-  <!-- 🤖 ROBOT -->
-  <div class="robot idle" id="robot">
-    <svg viewBox="0 0 400 300" class="robot-face">
-      <rect x="120" y="120" width="60" height="60" rx="14" class="eye" />
-      <rect x="220" y="120" width="60" height="60" rx="14" class="eye" />
-    </svg>
-  </div>
-
   <!-- 🖼 IMAGE -->
-  <img id="placeImage" class="place-image"
-       src="/images/entrance.jpeg"
-       alt="location image" />
+  <img id="placeImage" class="place-image" src="/images/entrance.jpg" />
 
   <!-- 📍 NAME -->
   <div id="placeName" class="place-name">Entrance</div>
 
   <!-- 🎛 CONTROLS -->
   <div class="controls">
-    <button id="prev">⏮</button>
-    <button id="playPause">▶️</button>
-    <button id="next">⏭</button>
+
+    <!-- PREV -->
+    <button id="prev" class="icon-btn">
+      <svg viewBox="0 0 24 24">
+        <path d="M11 19L2 12L11 5V19Z M22 5H18V19H22V5Z"/>
+      </svg>
+    </button>
+
+    <!-- PLAY / PAUSE -->
+    <button id="playPause" class="icon-btn">
+      <svg id="playIcon" viewBox="0 0 24 24">
+        <path d="M8 5V19L19 12L8 5Z"/>
+      </svg>
+      <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none">
+        <path d="M6 5H10V19H6V5ZM14 5H18V19H14V5Z"/>
+      </svg>
+    </button>
+
+    <!-- NEXT -->
+    <button id="next" class="icon-btn">
+      <svg viewBox="0 0 24 24">
+        <path d="M13 5L22 12L13 19V5Z M2 5H6V19H2V5Z"/>
+      </svg>
+    </button>
+
   </div>
 
   <script src="/script.js"></script>
