@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   const locations = [
-    { name: "Entrance", audio: "/audio/entrance.mp3", image: "/images/entrance.jpg" },
-    { name: "Reception", audio: "/audio/reception.mp3", image: "/images/reception.jpg" },
-    { name: "Innovation Lab", audio: "/audio/innovation-lab.mp3", image: "/images/innovation-lab.jpg" },
-    { name: "Cafeteria", audio: "/audio/cafeteria.mp3", image: "/images/cafeteria.jpg" },
-    { name: "PST Pride", audio: "/audio/pst-pride.mp3", image: "/images/pst-pride.jpg" },
-    { name: "Radial Classroom", audio: "/audio/radial-classroom.mp3", image: "/images/radial-classroom.jpg" }
+    { name: "Entrance", audio: "/audio/entrance.mp3", image: "/images/entrance.jpeg" },
+    { name: "Reception", audio: "/audio/reception.mp3", image: "/images/reception.jpeg" },
+    { name: "Innovation Lab", audio: "/audio/innovation-lab.mp3", image: "/images/innovation-lab.jpeg" },
+    { name: "Cafeteria", audio: "/audio/cafeteria.mp3", image: "/images/cafeteria.jpeg" },
+    { name: "PST Pride", audio: "/audio/pst-pride.mp3", image: "/images/pst-pride.jpeg" },
+    { name: "Radial Classroom", audio: "/audio/radial-classroom.mp3", image: "/images/radial-classroom.jpeg" }
   ];
 
   let index = 0;
