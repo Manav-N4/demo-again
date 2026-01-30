@@ -1,74 +1,108 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   const locations = [
-    { name: "Entrance", audio: "/audio/entrance.mp3" },
-    { name: "Reception", audio: "/audio/reception.mp3" },
-    { name: "Innovation Lab", audio: "/audio/innovation-lab.mp3" },
-    { name: "Cafeteria", audio: "/audio/cafeteria.mp3" },
-    { name: "PST Pride", audio: "/audio/pst-pride.mp3" },
-    { name: "Radial Classroom", audio: "/audio/radial-classroom.mp3" }
-  ];
+  {
+    name: "Entrance",
+    audio: "/audio/entrance.mp3",
+    image: "/images/entrance.jpeg"
+  },
+  {
+    name: "Reception",
+    audio: "/audio/reception.mp3",
+    image: "/images/reception.jpeg"
+  },
+  {
+    name: "Innovation Lab",
+    audio: "/audio/innovation-lab.mp3",
+    image: "/images/innovation-lab.jpeg"
+  },
+  {
+    name: "Cafeteria",
+    audio: "/audio/cafeteria.mp3",
+    image: "/images/cafeteria.jpeg"
+  },
+  {
+    name: "PST Pride",
+    audio: "/audio/pst-pride.mp3",
+    image: "/images/pst-pride.jpeg"
+  },
+  {
+    name: "Radial Classroom",
+    audio: "/audio/radial-classroom.mp3",
+    image: "/images/radial-classroom.jpeg"
+  }
+];
 
-  let index = -1;
+
+  let index = 0;
+  let isPlaying = false;
+
   const audio = new Audio();
 
-  const label = document.getElementById("location");
-  const startArea = document.getElementById("startArea");
+  const robot = document.getElementById("robot");
+  const placeName = document.getElementById("placeName");
+  const placeImage = document.getElementById("placeImage");
+
   const prevBtn = document.getElementById("prev");
   const nextBtn = document.getElementById("next");
-  const robot = document.getElementById("robot");
+  const playBtn = document.getElementById("playPause");
 
-  /* ---------- STATE ---------- */
   function setState(state) {
     robot.className = `robot ${state}`;
   }
 
-  /* ---------- AUDIO ---------- */
-  function playCurrent() {
-    audio.pause();
-    audio.currentTime = 0;
+  function loadLocation() {
+    const loc = locations[index];
 
     setState("thinking");
-    audio.src = locations[index].audio;
 
-    audio.play()
-      .then(() => setState("speaking"))
-      .catch(err => console.error("Audio blocked:", err));
+    placeName.textContent = loc.name;
+    placeImage.src = loc.image;
 
-    audio.onended = () => {
-      setTimeout(() => setState("idle"), 200);
-    };
+    audio.pause();
+    audio.currentTime = 0;
+    audio.src = loc.audio;
+
+    if (isPlaying) {
+      audio.play().then(() => setState("speaking"));
+    } else {
+      setState("idle");
+    }
   }
 
-  function updateLocation() {
-    label.textContent = locations[index].name;
-    playCurrent();
+  function play() {
+    audio.play().then(() => {
+      isPlaying = true;
+      playBtn.textContent = "⏸";
+      setState("speaking");
+    });
   }
 
-  /* ---------- START ---------- */
-  startArea.addEventListener("click", () => {
-    if (index !== -1) return;
+  function pause() {
+    audio.pause();
+    isPlaying = false;
+    playBtn.textContent = "▶️";
+    setState("idle");
+  }
 
-    index = 0;
-    updateLocation();
+  /* ---------- EVENTS ---------- */
 
-    prevBtn.disabled = false;
-    nextBtn.disabled = false;
-  });
+  playBtn.onclick = () => {
+    isPlaying ? pause() : play();
+  };
 
-  /* ---------- NAV ---------- */
-  prevBtn.addEventListener("click", () => {
-    if (index <= 0) return;
-    index--;
-    updateLocation();
-  });
+  nextBtn.onclick = () => {
+    index = (index + 1) % locations.length;
+    loadLocation();
+  };
 
-  nextBtn.addEventListener("click", () => {
-    if (index >= locations.length - 1) return;
-    index++;
-    updateLocation();
-  });
+  prevBtn.onclick = () => {
+    index = (index - 1 + locations.length) % locations.length;
+    loadLocation();
+  };
+
+  audio.onended = pause;
 
   /* ---------- INIT ---------- */
-  setState("idle");
+  loadLocation();
 });
